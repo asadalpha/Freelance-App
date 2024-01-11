@@ -31,7 +31,7 @@ class _AuthScreenState extends State<AuthScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: h * 0.03,
+              height: w * 0.01,
             ),
             Container(
               height: h * 0.1,
@@ -40,15 +40,15 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
             Container(
               width: w,
-              height: h * 0.18,
-              padding: const EdgeInsets.only(left: 1, bottom: 13),
+              height: h * 0.22,
+              padding: const EdgeInsets.only(left: 1, bottom: 12),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: w * 0.8,
+                    width: 300,
                     child: Text(
                       'Your Tomorrow Starts Today: Cancer Detection Matters',
                       textAlign: TextAlign.center,
