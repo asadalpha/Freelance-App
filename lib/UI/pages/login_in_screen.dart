@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,60 +17,60 @@ class _LoginScreenState extends State<LoginScreen> {
   Icon suffixIcon = const Icon(Icons.visibility);
   @override
   Widget build(BuildContext context) {
-    var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: SafeArea(
-          child: Column(
-        children: [
-          ///// --- onco logo
-          SizedBox(
-            height: h * 0.05,
-          ),
-          Container(
-            height: h * 0.05,
-            decoration: const BoxDecoration(
-                image: DecorationImage(image: AssetImage("assets/logo.png"))),
-          ),
-          SizedBox(
-            height: h * 0.03,
-          ),
-          //// Login in account Text
-          Text(
-            "Login To Your Account",
-            style: GoogleFonts.openSans(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: const Color(0xFFDC7D57)),
-          ),
-          Text(
-            textAlign: TextAlign.center,
-            "Welcome back! Please log in to access your account.",
-            style: GoogleFonts.openSans(
-              fontSize: 16,
-              color: Colors.black,
-              fontWeight: FontWeight.w400,
+          child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20.h,
             ),
-          ),
-
-          ///
-          ///Text field 1
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Username",
-                style: GoogleFonts.openSans(
-                    fontSize: 14, fontWeight: FontWeight.w600),
+            Container(
+              height: 36.h,
+              width: 108.w,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(image: AssetImage("assets/logo.png"))),
+            ),
+            SizedBox(
+              height: 16.h,
+            ),
+            //// Login in account Text
+            Text(
+              "Login To Your Account",
+              style: GoogleFonts.openSans(
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xFFDC7D57)),
+            ),
+            SizedBox(
+              height: 16.h,
+            ),
+            Text(
+              textAlign: TextAlign.center,
+              "Welcome back! Please log in to access your account.",
+              style: GoogleFonts.openSans(
+                fontSize: 16.sp,
+                color: Colors.black,
+                fontWeight: FontWeight.w400,
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: SizedBox(
-              height: h / 14,
+
+            Row(
+              children: [
+                Text(
+                  "Username",
+                  style: GoogleFonts.openSans(
+                      fontSize: 12.sp, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            SizedBox(
+              height: 48.h,
+              width: 320.w,
               child: TextField(
                 controller: usernameController,
                 decoration: InputDecoration(
@@ -80,22 +81,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Password",
-                style: GoogleFonts.openSans(
-                    fontSize: 14, fontWeight: FontWeight.w600),
-              ),
+            SizedBox(
+              height: 12.h,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: SizedBox(
-              height: h / 14,
+            Row(
+              children: [
+                Text(
+                  "Password",
+                  style: GoogleFonts.openSans(
+                      fontSize: 12.sp, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            SizedBox(
+              height: 48.h,
+              width: 320.w,
               child: TextField(
                 controller: passwrodController,
                 obscureText: obsecureText,
@@ -116,39 +119,43 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-          ),
-
-          Row(
-            children: [
-              Checkbox(
-                  activeColor: const Color(0xff213D68),
-                  value: checkboxvalue,
-                  onChanged: (value) {
-                    setState(() {
-                      checkboxvalue = !checkboxvalue;
-                    });
-                  }),
-              Text(
-                "Remember Me",
-                style: GoogleFonts.openSans(fontSize: 14),
-              ),
-              SizedBox(
-                width: w * 0.3,
-              ),
-              GestureDetector(
-                onTap: () {}, // forgot password screen and logic
-                child: Text(
-                  "Forgot Password?",
-                  style: GoogleFonts.openSans(fontSize: 14),
+            SizedBox(
+              height: 8.h,
+            ),
+            Row(
+              children: [
+                Checkbox(
+                    activeColor: const Color(0xff213D68),
+                    value: checkboxvalue,
+                    onChanged: (value) {
+                      setState(() {
+                        checkboxvalue = !checkboxvalue;
+                      });
+                    }),
+                Text(
+                  "Remember Me",
+                  style: GoogleFonts.openSans(
+                      fontSize: 14.sp, color: const Color(0xff7A8BA4)),
                 ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: h * 0.068,
-              width: w - 40,
+                SizedBox(
+                  width: 65.w,
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Text(
+                    "Forgot Password?",
+                    style: GoogleFonts.openSans(
+                        fontSize: 14.sp, color: const Color(0xff7A8BA4)),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 12.h,
+            ),
+            SizedBox(
+              height: 48.h,
+              width: 320.w,
               child: TextButton(
                   style: TextButton.styleFrom(
                     backgroundColor: const Color(0xffDC7D57),
@@ -164,48 +171,45 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: w * 0.35,
+                        width: 120.w,
                       ),
                       Text(
                         "Login",
                         style: GoogleFonts.openSans(
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
-                            fontSize: 18),
+                            fontSize: 16.sp),
                       ),
-                      SizedBox(
-                        width: w * 0.25,
-                      ),
+                      const Spacer(),
                       Image.asset("assets/arrow.png")
                     ],
                   )),
             ),
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Don't have an account?",
-                  style: GoogleFonts.openSans(fontSize: 16),
-                ),
-                SizedBox(
-                  width: w * 0.025,
-                ),
-                Text(
-                  "Register",
-                  style: GoogleFonts.openSans(
-                      fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-              ],
+            SizedBox(
+              height: 12.h,
             ),
-          ),
-
-          /// login button
-          ///
-          /// dont have an acount text
-        ],
+            GestureDetector(
+              onTap: () {},
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account?",
+                    style: GoogleFonts.openSans(fontSize: 16),
+                  ),
+                  SizedBox(
+                    width: 6.w,
+                  ),
+                  Text(
+                    "Register",
+                    style: GoogleFonts.openSans(
+                        fontSize: 16.sp, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       )),
     );
   }

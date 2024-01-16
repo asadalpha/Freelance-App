@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:onco_app/UI/pages/login_in_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,24 +24,24 @@ class _AuthScreenState extends State<AuthScreen> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
             SizedBox(
-              height: w * 0.01,
+              height: 20.h,
             ),
             Container(
-              height: h * 0.1,
+              height: 48.h,
               decoration: const BoxDecoration(
                   image: DecorationImage(image: AssetImage("assets/logo.png"))),
             ),
+            SizedBox(
+              height: 10.h,
+            ),
             Container(
-              width: w,
-              height: h * 0.22,
+              width: 320.w,
+              height: 142.h,
               padding: const EdgeInsets.only(left: 1, bottom: 12),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -48,13 +49,13 @@ class _AuthScreenState extends State<AuthScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 300,
+                    width: 280.w,
                     child: Text(
                       'Your Tomorrow Starts Today: Cancer Detection Matters',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.playfairDisplay(
                         color: const Color(0xFF2A2A2A),
-                        fontSize: 32,
+                        fontSize: 28.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -63,13 +64,13 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ),
             SizedBox(
-              height: h * 0.03,
+              height: 10.h,
             ),
             Stack(
               children: [
                 SizedBox(
-                  height: h * 0.45,
-                  width: w,
+                  height: 320.h,
+                  width: 320.w,
                   child: PageView.builder(
                       controller: _controller,
                       itemCount: imagePaths.length,
@@ -80,15 +81,15 @@ class _AuthScreenState extends State<AuthScreen> {
                       },
                       itemBuilder: (context, index) {
                         return Container(
-                            height: h,
-                            width: w,
+                            height: 320.h,
+                            width: 320.w,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     fit: BoxFit.contain,
                                     image: AssetImage(imagePaths[index]))),
                             child: Container(
-                              height: h,
-                              width: w,
+                              height: 100.h,
+                              width: 320.w,
                               decoration: const BoxDecoration(
                                   image: DecorationImage(
                                       fit: BoxFit.contain,
@@ -98,8 +99,8 @@ class _AuthScreenState extends State<AuthScreen> {
                       }),
                 ),
                 Positioned(
-                  bottom: 15,
-                  left: 160,
+                  bottom: 30.h,
+                  left: 125.w,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(30),
                     child: BackdropFilter(
@@ -123,13 +124,13 @@ class _AuthScreenState extends State<AuthScreen> {
               ],
             ),
             SizedBox(
-              height: h * 0.01,
+              height: 10.h,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
-                height: h * 0.068,
-                width: w - 40,
+                height: 48.h,
+                width: 320.w,
                 child: TextButton(
                     style: TextButton.styleFrom(
                       backgroundColor: const Color(0xffDC7D57),
@@ -149,12 +150,14 @@ class _AuthScreenState extends State<AuthScreen> {
                           style: GoogleFonts.openSans(
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
-                              fontSize: 18),
+                              fontSize: 18.sp),
                         ),
-                        SizedBox(
-                          width: w * 0.1,
-                        ),
-                        Image.asset("assets/arrow.png")
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 12,
+                          ),
+                          child: Image.asset("assets/arrow.png"),
+                        )
                       ],
                     )),
               ),
@@ -166,7 +169,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 style: GoogleFonts.openSans(
                     decoration: TextDecoration.underline,
                     color: const Color(0xff2A2A2A),
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600),
               ),
             )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ScanScreen extends StatefulWidget {
@@ -20,8 +21,8 @@ class _ScanScreenState extends State<ScanScreen> {
     return Scaffold(
         body: SafeArea(
       child: Container(
-        width: w,
-        height: h,
+        width: 360.w,
+        height: 800.h,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/picture.png"),
@@ -31,15 +32,15 @@ class _ScanScreenState extends State<ScanScreen> {
         child: Stack(
           children: [
             Positioned(
-              top: h * 0.03,
-              left: w * 0.3 - 16,
+              top: 24.h,
+              left: 82.w,
               child: GestureDetector(
                 onTap: () {
                   _showModalBottomSheet(context);
                 },
                 child: Container(
-                  height: h * 0.05,
-                  width: w * 0.52,
+                  height: 41.h,
+                  width: 197.w,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(50)),
@@ -47,7 +48,7 @@ class _ScanScreenState extends State<ScanScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: w * 0.04,
+                        width: 12.w,
                       ),
                       CircleAvatar(
                         radius: 5,
@@ -56,18 +57,18 @@ class _ScanScreenState extends State<ScanScreen> {
                             : const Color(0xffFF616D),
                       ),
                       SizedBox(
-                        width: w * 0.02,
+                        width: 14.w,
                       ),
                       isLoading
                           ? Text(
                               "Signal strength: Good",
                               style: GoogleFonts.openSans(
-                                  fontSize: 14, fontWeight: FontWeight.w600),
+                                  fontSize: 14.sp, fontWeight: FontWeight.w600),
                             )
                           : Text(
                               "Signal strength: Poor",
                               style: GoogleFonts.openSans(
-                                  fontSize: 14, fontWeight: FontWeight.w600),
+                                  fontSize: 14.sp, fontWeight: FontWeight.w600),
                             ),
                     ],
                   ),
@@ -75,8 +76,8 @@ class _ScanScreenState extends State<ScanScreen> {
               ),
             ),
             Positioned(
-              left: w * 0.07,
-              bottom: w * 0.1,
+              left: 20.w,
+              bottom: 42.w,
               child: GestureDetector(
                 onTap: () {
                   setState(() {
@@ -84,10 +85,8 @@ class _ScanScreenState extends State<ScanScreen> {
                   });
                 },
                 child: Container(
-                  // height: 147,
-                  // // width: 340,
-                  height: h * 0.18,
-                  width: w * 0.85,
+                  height: 147.h,
+                  width: 320.w,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20)),
@@ -100,8 +99,8 @@ class _ScanScreenState extends State<ScanScreen> {
                             ? Row(
                                 children: [
                                   SizedBox(
-                                    height: 20,
-                                    width: 20,
+                                    height: 20.h,
+                                    width: 20.w,
                                     child: CircularProgressIndicator(
                                         strokeWidth: 6,
                                         color: const Color(0xff3AC0A0),
@@ -111,7 +110,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                   Text(
                                     '${(progressValue * 25).toStringAsFixed(0)}% Completed',
                                     style: GoogleFonts.openSans(
-                                        fontSize: 15,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ],
@@ -121,7 +120,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                   Text(
                                     "Calibration in progress....",
                                     style: GoogleFonts.openSans(
-                                        fontSize: 15,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ],
@@ -135,7 +134,7 @@ class _ScanScreenState extends State<ScanScreen> {
                           child: Text(
                             "During the measurement, please do not speak or move..",
                             style: GoogleFonts.openSans(
-                                fontSize: 15, fontWeight: FontWeight.w400),
+                                fontSize: 15.sp, fontWeight: FontWeight.w400),
                           ),
                         ),
                       ),
@@ -159,7 +158,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                 "Cancle Scan",
                                 style: GoogleFonts.openSans(
                                     color: const Color(0xffF31F2E),
-                                    fontSize: 14,
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.w600),
                               ),
                             ),
@@ -199,7 +198,7 @@ void _showModalBottomSheet(BuildContext context) {
               "Scan Failed! Please try again..",
               style: GoogleFonts.openSans(
                   color: const Color(0xff2A2A2A),
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold),
             ),
             Row(
@@ -216,7 +215,7 @@ void _showModalBottomSheet(BuildContext context) {
                       "Go Back",
                       style: GoogleFonts.openSans(
                           color: const Color(0xffF31F2E),
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w600),
                     ),
                   ),
@@ -236,7 +235,7 @@ void _showModalBottomSheet(BuildContext context) {
                         "Try Again",
                         style: GoogleFonts.openSans(
                             color: Colors.white,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -272,7 +271,7 @@ void _showModalSheetForAnalysingData(BuildContext context) {
               "Analysing Data",
               style: GoogleFonts.openSans(
                   color: const Color(0xff2A2A2A),
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
@@ -282,7 +281,7 @@ void _showModalSheetForAnalysingData(BuildContext context) {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.openSans(
                     color: const Color(0xff2A2A2A),
-                    fontSize: 20,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.bold),
               ),
             ),
