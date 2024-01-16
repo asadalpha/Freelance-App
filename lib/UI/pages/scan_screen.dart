@@ -32,32 +32,29 @@ class _ScanScreenState extends State<ScanScreen> {
         child: Stack(
           children: [
             Positioned(
-              top: 24.h,
-              left: 82.w,
+              top: 32.h,
+              left: 81.w,
               child: GestureDetector(
                 onTap: () {
                   _showModalBottomSheet(context);
                 },
                 child: Container(
-                  height: 41.h,
-                  width: 197.w,
+                  padding: const EdgeInsets.only(
+                      top: 11, right: 16, bottom: 11, left: 16),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(50)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: 12.w,
-                      ),
-                      CircleAvatar(
-                        radius: 5,
-                        backgroundColor: isLoading
-                            ? const Color(0xff3AC0A0)
-                            : const Color(0xffFF616D),
-                      ),
-                      SizedBox(
-                        width: 14.w,
+                      Padding(
+                        padding: const EdgeInsets.only(right: 11),
+                        child: CircleAvatar(
+                          radius: 5,
+                          backgroundColor: isLoading
+                              ? const Color(0xff3AC0A0)
+                              : const Color(0xffFF616D),
+                        ),
                       ),
                       isLoading
                           ? Text(
@@ -77,7 +74,8 @@ class _ScanScreenState extends State<ScanScreen> {
             ),
             Positioned(
               left: 20.w,
-              bottom: 42.w,
+              bottom: 38.h,
+              right: 20.w,
               child: GestureDetector(
                 onTap: () {
                   setState(() {
@@ -85,17 +83,16 @@ class _ScanScreenState extends State<ScanScreen> {
                   });
                 },
                 child: Container(
-                  height: 147.h,
-                  width: 320.w,
+                  width: double.infinity,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20)),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: w * 0.02,
-                        left: w * 0.04,
-                        child: isLoading
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 16, bottom: 16, left: 16, right: 16),
+                    child: Column(
+                      children: [
+                        isLoading
                             ? Row(
                                 children: [
                                   SizedBox(
@@ -120,52 +117,55 @@ class _ScanScreenState extends State<ScanScreen> {
                                   Text(
                                     "Calibration in progress....",
                                     style: GoogleFonts.openSans(
+                                        color: Color(0xFF2A2A2A),
                                         fontSize: 15.sp,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.w700),
                                   ),
                                 ],
                               ),
-                      ),
-                      Positioned(
-                        top: w * 0.08,
-                        left: w * 0.04,
-                        child: SizedBox(
+                        SizedBox(
                           width: w * 0.8,
                           child: Text(
                             "During the measurement, please do not speak or move..",
                             style: GoogleFonts.openSans(
-                                fontSize: 15.sp, fontWeight: FontWeight.w400),
+                                color: Color(0xB2213D68),
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w400),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        top: w * 0.24,
-                        left: w * 0.5,
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isLoading = false;
-                            });
-                          },
-                          child: Container(
-                            height: h * 0.055,
-                            width: w * 0.3,
-                            decoration: BoxDecoration(
-                                border: Border.all(width: 1),
-                                borderRadius: BorderRadius.circular(30)),
-                            child: Center(
-                              child: Text(
-                                "Cancle Scan",
-                                style: GoogleFonts.openSans(
-                                    color: const Color(0xffF31F2E),
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.only(
+                                    left: 16,
+                                    top: 10.5,
+                                    right: 16,
+                                    bottom: 10.5),
+                                decoration: BoxDecoration(
+                                    border: Border.all(width: 1),
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Center(
+                                  child: Text(
+                                    "Cancle Scan",
+                                    style: GoogleFonts.openSans(
+                                        color: const Color(0xffF31F2E),
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -178,8 +178,6 @@ class _ScanScreenState extends State<ScanScreen> {
 }
 
 void _showModalBottomSheet(BuildContext context) {
-  var h = MediaQuery.of(context).size.height;
-  var w = MediaQuery.of(context).size.width;
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
@@ -197,7 +195,7 @@ void _showModalBottomSheet(BuildContext context) {
             Text(
               "Scan Failed! Please try again..",
               style: GoogleFonts.openSans(
-                  color: const Color(0xff2A2A2A),
+                  color: Color(0xFF2A2A2A),
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold),
             ),
@@ -205,8 +203,8 @@ void _showModalBottomSheet(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  height: 50,
-                  width: 172,
+                  padding: const EdgeInsets.only(
+                      left: 50.5, top: 10.5, right: 50.5, bottom: 10.5),
                   decoration: BoxDecoration(
                       border: Border.all(width: 1),
                       borderRadius: BorderRadius.circular(30)),
@@ -214,9 +212,7 @@ void _showModalBottomSheet(BuildContext context) {
                     child: Text(
                       "Go Back",
                       style: GoogleFonts.openSans(
-                          color: const Color(0xffF31F2E),
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600),
+                          fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
@@ -225,8 +221,8 @@ void _showModalBottomSheet(BuildContext context) {
                     _showModalSheetForAnalysingData(context);
                   },
                   child: Container(
-                    height: 50,
-                    width: 172,
+                    padding: const EdgeInsets.only(
+                        left: 50.5, top: 10.5, right: 50.5, bottom: 10.5),
                     decoration: BoxDecoration(
                         color: const Color(0xffDC7D57),
                         borderRadius: BorderRadius.circular(30)),
@@ -251,8 +247,6 @@ void _showModalBottomSheet(BuildContext context) {
 }
 
 void _showModalSheetForAnalysingData(BuildContext context) {
-  var h = MediaQuery.of(context).size.height;
-  var w = MediaQuery.of(context).size.width;
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
@@ -270,19 +264,16 @@ void _showModalSheetForAnalysingData(BuildContext context) {
             Text(
               "Analysing Data",
               style: GoogleFonts.openSans(
-                  color: const Color(0xff2A2A2A),
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.bold),
+                  fontSize: 24.sp, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
-              width: w,
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 45, right: 45, top: 0, bottom: 32.6),
               child: Text(
                 "Hold tight, the measurement\nresults are on the way",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.openSans(
-                    color: const Color(0xff2A2A2A),
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold),
+                    fontSize: 20.sp, fontWeight: FontWeight.w400),
               ),
             ),
           ],
