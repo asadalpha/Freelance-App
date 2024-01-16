@@ -14,21 +14,18 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController passwrodController = TextEditingController();
   bool checkboxvalue = false;
   bool obsecureText = true;
-  Icon suffixIcon = const Icon(Icons.visibility);
+  Icon suffixIcon = const Icon(Icons.visibility_off);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
+        padding: const EdgeInsets.only(left: 20, right: 20),
+        child: ListView(
           children: [
-            SizedBox(
-              height: 20.h,
-            ),
             Container(
-              height: 36.h,
-              width: 108.w,
+              padding: const EdgeInsets.only(left: 106, top: 64),
               decoration: const BoxDecoration(
                   image: DecorationImage(image: AssetImage("assets/logo.png"))),
             ),
@@ -37,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             //// Login in account Text
             Text(
+              textAlign: TextAlign.center,
               "Login To Your Account",
               style: GoogleFonts.openSans(
                   fontSize: 20.sp,
@@ -51,101 +49,126 @@ class _LoginScreenState extends State<LoginScreen> {
               "Welcome back! Please log in to access your account.",
               style: GoogleFonts.openSans(
                 fontSize: 16.sp,
-                color: Colors.black,
+                color: const Color(0xff2F3036),
                 fontWeight: FontWeight.w400,
               ),
             ),
-
-            Row(
-              children: [
-                Text(
-                  "Username",
-                  style: GoogleFonts.openSans(
-                      fontSize: 12.sp, fontWeight: FontWeight.w600),
-                ),
-              ],
+            SizedBox(
+              height: 24.h,
+            ),
+            Text(
+              "Username",
+              style: GoogleFonts.openSans(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xFF2E3036),
+              ),
             ),
             SizedBox(
               height: 8.h,
             ),
-            SizedBox(
-              height: 48.h,
-              width: 320.w,
-              child: TextField(
-                controller: usernameController,
-                decoration: InputDecoration(
-                  hintText: "Username",
-                  border: OutlineInputBorder(
+            TextFormField(
+              controller: usernameController,
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                hintText: "Username",
+                border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                  ),
+                    borderSide: const BorderSide(color: Color(0xff213D68))),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Color(0xff213D68)),
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
             SizedBox(
               height: 12.h,
             ),
-            Row(
-              children: [
-                Text(
-                  "Password",
-                  style: GoogleFonts.openSans(
-                      fontSize: 12.sp, fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
-            SizedBox(
-              height: 48.h,
-              width: 320.w,
-              child: TextField(
-                controller: passwrodController,
-                obscureText: obsecureText,
-                decoration: InputDecoration(
-                  hintText: "Password",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  suffixIcon: IconButton(
-                    icon: suffixIcon,
-                    onPressed: () {
-                      setState(() {
-                        obsecureText = !obsecureText;
-                        suffixIcon = const Icon(Icons.visibility_off);
-                      });
-                    },
-                  ),
-                ),
+            Text(
+              "Password",
+              style: GoogleFonts.openSans(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xFF2E3036),
               ),
             ),
             SizedBox(
               height: 8.h,
             ),
+
+            TextFormField(
+              controller: passwrodController,
+              obscureText: obsecureText,
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                hintText: "Password",
+                border: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Color(0xff213D68)),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Color(0xff213D68)),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                suffixIcon: IconButton(
+                  icon: suffixIcon,
+                  onPressed: () {
+                    setState(() {
+                      obsecureText = !obsecureText;
+                      suffixIcon = obsecureText == true
+                          ? const Icon(Icons.visibility_off)
+                          : const Icon(Icons.visibility);
+                    });
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 16.h,
+            ),
             Row(
               children: [
-                Checkbox(
-                    activeColor: const Color(0xff213D68),
-                    value: checkboxvalue,
-                    onChanged: (value) {
-                      setState(() {
-                        checkboxvalue = !checkboxvalue;
-                      });
-                    }),
-                Text(
-                  "Remember Me",
-                  style: GoogleFonts.openSans(
-                      fontSize: 14.sp, color: const Color(0xff7A8BA4)),
+                Row(
+                  children: [
+                    SizedBox(
+                      height: 24.h,
+                      width: 24.w,
+                      child: Checkbox(
+                          shape: RoundedRectangleBorder(
+                              side: const BorderSide(color: Color(0xFF213D68)),
+                              borderRadius: BorderRadius.circular(4)),
+                          activeColor: const Color(0xff213D68),
+                          value: checkboxvalue,
+                          onChanged: (value) {
+                            setState(() {
+                              checkboxvalue = !checkboxvalue;
+                            });
+                          }),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Text(
+                        "Remember Me",
+                        style: GoogleFonts.openSans(
+                          fontSize: 14.sp,
+                          color: const Color(0xff7A8BA4),
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: 65.w,
-                ),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {},
                   child: Text(
                     "Forgot Password?",
                     style: GoogleFonts.openSans(
-                        fontSize: 14.sp, color: const Color(0xff7A8BA4)),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.sp,
+                        color: const Color(0xff7A8BA4)),
                   ),
                 ),
               ],
@@ -180,13 +203,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.white,
                             fontSize: 16.sp),
                       ),
-                      const Spacer(),
-                      Image.asset("assets/arrow.png")
+                      //const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 86),
+                        child: Image.asset("assets/arrow.png"),
+                      )
                     ],
                   )),
             ),
             SizedBox(
-              height: 12.h,
+              height: 16.h,
             ),
             GestureDetector(
               onTap: () {},
@@ -195,7 +221,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Text(
                     "Don't have an account?",
-                    style: GoogleFonts.openSans(fontSize: 16),
+                    style: GoogleFonts.openSans(
+                        fontSize: 16, color: const Color(0xff2A2A2A)),
                   ),
                   SizedBox(
                     width: 6.w,
@@ -203,7 +230,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     "Register",
                     style: GoogleFonts.openSans(
-                        fontSize: 16.sp, fontWeight: FontWeight.w600),
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xff213D68)),
                   ),
                 ],
               ),

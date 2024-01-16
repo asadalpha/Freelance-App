@@ -28,7 +28,7 @@ class _AuthScreenState extends State<AuthScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Column(
+          child: ListView(
             children: [
               SizedBox(
                 height: 20.h,
@@ -43,7 +43,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 height: 10.h,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
+                padding: const EdgeInsets.only(left: 18, right: 18),
                 child: Text(
                   'Your Tomorrow Starts Today: Cancer Detection Matters',
                   textAlign: TextAlign.center,
@@ -142,7 +142,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                            left: 12,
+                            left: 16,
                           ),
                           child: Image.asset("assets/arrow.png"),
                         )
@@ -152,15 +152,19 @@ class _AuthScreenState extends State<AuthScreen> {
               SizedBox(
                 height: 16.h,
               ),
-              GestureDetector(
-                onTap: () {},
-                child: Text(
-                  "Register an account",
-                  style: GoogleFonts.openSans(
-                      decoration: TextDecoration.underline,
-                      color: const Color(0xff2A2A2A),
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 28),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    "Register an account",
+                    style: GoogleFonts.openSans(
+                        decoration: TextDecoration.underline,
+                        color: const Color(0xff2A2A2A),
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
               )
             ],
