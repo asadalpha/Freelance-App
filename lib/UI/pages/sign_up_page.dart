@@ -26,111 +26,99 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20.h,
-            ),
-            Container(
-              height: 48.h,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(image: AssetImage("assets/logo.png"))),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Container(
-              width: 320.w,
-              height: 142.h,
-              padding: const EdgeInsets.only(left: 1, bottom: 12),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20.h,
+              ),
+              Container(
+                height: 48.h,
+                decoration: const BoxDecoration(
+                    image:
+                        DecorationImage(image: AssetImage("assets/logo.png"))),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                child: Text(
+                  'Your Tomorrow Starts Today: Cancer Detection Matters',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.playfairDisplay(
+                    color: const Color(0xFF2A2A2A),
+                    fontSize: 28.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 38.h,
+              ),
+              Stack(
                 children: [
                   SizedBox(
-                    width: 280.w,
-                    child: Text(
-                      'Your Tomorrow Starts Today: Cancer Detection Matters',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.playfairDisplay(
-                        color: const Color(0xFF2A2A2A),
-                        fontSize: 28.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Stack(
-              children: [
-                SizedBox(
-                  height: 320.h,
-                  width: 320.w,
-                  child: PageView.builder(
-                      controller: _controller,
-                      itemCount: imagePaths.length,
-                      onPageChanged: (index) {
-                        setState(() {
-                          _currentIndex = index;
-                        });
-                      },
-                      itemBuilder: (context, index) {
-                        return Container(
-                            height: 320.h,
-                            width: 320.w,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    fit: BoxFit.contain,
-                                    image: AssetImage(imagePaths[index]))),
+                    height: 320.h,
+                    width: 320.w,
+                    child: PageView.builder(
+                        controller: _controller,
+                        itemCount: imagePaths.length,
+                        onPageChanged: (index) {
+                          setState(() {
+                            _currentIndex = index;
+                          });
+                        },
+                        itemBuilder: (context, index) {
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(22.18),
                             child: Container(
-                              height: 100.h,
-                              width: 320.w,
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.contain,
-                                      image:
-                                          AssetImage("assets/ovalvector.png"))),
-                            ));
-                      }),
-                ),
-                Positioned(
-                  bottom: 30.h,
-                  left: 125.w,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 35.0, sigmaY: 35.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(30)),
-                        child: DotsIndicator(
-                          dotsCount: imagePaths.length,
-                          position: _currentIndex,
-                          decorator: const DotsDecorator(
-                            color: Colors.white,
-                            activeColor: Color(0xFFDC7D57),
+                                height: 320.h,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(imagePaths[index]))),
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                          fit: BoxFit.contain,
+                                          image: AssetImage(
+                                              "assets/ovalvector.png"))),
+                                )),
+                          );
+                        }),
+                  ),
+                  Positioned(
+                    bottom: 30.h,
+                    left: 125.w,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 35.0, sigmaY: 35.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white),
+                              borderRadius: BorderRadius.circular(30)),
+                          child: DotsIndicator(
+                            dotsCount: imagePaths.length,
+                            position: _currentIndex,
+                            decorator: const DotsDecorator(
+                              color: Colors.white,
+                              activeColor: Color(0xFFDC7D57),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
+                ],
+              ),
+              SizedBox(
+                height: 19.h,
+              ),
+              SizedBox(
                 height: 48.h,
-                width: 320.w,
                 child: TextButton(
                     style: TextButton.styleFrom(
                       backgroundColor: const Color(0xffDC7D57),
@@ -150,7 +138,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           style: GoogleFonts.openSans(
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
-                              fontSize: 18.sp),
+                              fontSize: 16.sp),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -161,19 +149,22 @@ class _AuthScreenState extends State<AuthScreen> {
                       ],
                     )),
               ),
-            ),
-            GestureDetector(
-              onTap: () {}, // navigate to SignUpScreen
-              child: Text(
-                "Register an account",
-                style: GoogleFonts.openSans(
-                    decoration: TextDecoration.underline,
-                    color: const Color(0xff2A2A2A),
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600),
+              SizedBox(
+                height: 16.h,
               ),
-            )
-          ],
+              GestureDetector(
+                onTap: () {},
+                child: Text(
+                  "Register an account",
+                  style: GoogleFonts.openSans(
+                      decoration: TextDecoration.underline,
+                      color: const Color(0xff2A2A2A),
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

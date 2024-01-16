@@ -27,12 +27,11 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'First Method',
-
           theme: ThemeData(),
           home: child,
         );
       },
-      child: const ScanScreen(),
+      child: const AuthScreen(),
     );
   }
 }
