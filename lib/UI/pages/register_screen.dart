@@ -84,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (value!.isEmpty) {
                             return 'Please enter your First Name';
                           }
-                          // Add additional validation if needed
+
                           return null;
                         },
                         decoration: InputDecoration(
@@ -121,7 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (value!.isEmpty) {
                             return 'Please enter your Last Name';
                           }
-                          // Add additional validation if needed
+
                           return null;
                         },
                         decoration: InputDecoration(
@@ -170,7 +170,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   if (value!.isEmpty) {
                     return 'Please enter your email';
                   }
-                  // Add additional validation if needed
+
                   return null;
                 },
                 decoration: InputDecoration(
@@ -214,7 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   if (value!.isEmpty) {
                     return 'Please enter your Website Domain!';
                   }
-                  // Add additional validation if needed
+
                   return null;
                 },
                 decoration: InputDecoration(
@@ -267,15 +267,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.normal,
-                            color: Color(0xff7A8BA4)),
+                            color: const Color(0xff7A8BA4)),
                         children: <TextSpan>[
                           TextSpan(
                             text: 'Terms and\nConditions ',
                             style: GoogleFonts.poppins(
-                                color: Color(0xffDC7D57),
+                                color: const Color(0xffDC7D57),
                                 fontSize: 16,
-                                fontWeight:
-                                    FontWeight.bold), // Style for colored words
+                                fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: 'and the ',
@@ -285,7 +284,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           TextSpan(
                             text: "Privacy Policy.",
                             style: GoogleFonts.poppins(
-                                color: Color(0xffDC7D57),
+                                color: const Color(0xffDC7D57),
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold),
                           )
@@ -303,7 +302,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       backgroundColor: const Color(0xffDC7D57),
                     ),
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      // if (_formKey.currentState!.validate()) {}
+                      if (checkboxvalue) {
+                        if (_formKey.currentState!.validate()) {}
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                         const SnackBar(
+                            content: Text(
+                                'Please agree to the Terms and Conditions and Privacy Policy.'),
+                            duration: Duration(seconds: 3),
+                          ),
+                        );
+                      }
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
