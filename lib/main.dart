@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:onco_app/UI/pages/login_in_screen.dart';
+import 'package:onco_app/UI/pages/register_screen.dart';
 import 'package:onco_app/UI/pages/scan_screen.dart';
 import 'package:onco_app/UI/pages/sign_up_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,8 +32,8 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      //child: const AuthScreen(),
-      child: ScanScreen(),
+      child: const RegisterScreen(),
+      // child: ScanScreen(),
     );
   }
 }
