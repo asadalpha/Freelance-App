@@ -6,20 +6,24 @@ import 'package:onco_app/UI/pages/register_screen.dart';
 import 'package:onco_app/UI/pages/scan_screen.dart';
 import 'package:onco_app/UI/pages/sign_up_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:camera/camera.dart';
 
-void main() {
-  runApp(DevicePreview(
-    enabled: !kReleaseMode,
-    builder: (context) => const MyApp(),
-  ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //
     return ScreenUtilInit(
       designSize: const Size(360, 800),
       minTextAdapt: true,
@@ -32,8 +36,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: const RegisterScreen(),
-      // child: ScanScreen(),
+      child: const ScanScreen(),
     );
   }
 }
