@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,9 +10,35 @@ class ScanScreen extends StatefulWidget {
   State<ScanScreen> createState() => _ScanScreenState();
 }
 
-var isLoading = false;
-
 class _ScanScreenState extends State<ScanScreen> {
+  late CameraController _controller;
+  late List<CameraDescription> cameras;
+  late CameraController controller;
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    availableCameras().then((availableCameras) {
+      cameras = availableCameras;
+      if (cameras.length > 0) {
+        _controller = CameraController(cameras[1], ResolutionPreset.medium);
+        _controller.initialize().then((_) {
+          if (!mounted) {
+            return;
+          }
+          setState(() {});
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -19,161 +46,162 @@ class _ScanScreenState extends State<ScanScreen> {
     double progressValue = 1.0;
 
     return Scaffold(
-        body: SafeArea(
-      child: Container(
-        width: 360.w,
-        height: 800.h,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/picture.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: 32.h,
-              left: 81.w,
-              child: GestureDetector(
-                onTap: () {
-                  _showModalBottomSheet(context);
-                },
-                child: Container(
-                  padding: const EdgeInsets.only(
-                      top: 11, right: 16, bottom: 11, left: 16),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 11),
-                        child: CircleAvatar(
-                          radius: 5,
-                          backgroundColor: isLoading
-                              ? const Color(0xff3AC0A0)
-                              : const Color(0xffFF616D),
-                        ),
-                      ),
-                      isLoading
-                          ? Text(
-                              "Signal strength: Good",
-                              style: GoogleFonts.openSans(
-                                  fontSize: 14.sp, fontWeight: FontWeight.w600),
-                            )
-                          : Text(
-                              "Signal strength: Poor",
-                              style: GoogleFonts.openSans(
-                                  fontSize: 14.sp, fontWeight: FontWeight.w600),
-                            ),
-                    ],
-                  ),
-                ),
+      body: SafeArea(
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          return Stack(
+            children: [
+              Container(
+                width: constraints.maxWidth,
+                height: constraints.maxHeight,
+                child: CameraPreview(_controller),
               ),
-            ),
-            Positioned(
-              left: 20.w,
-              bottom: 38.h,
-              right: 20.w,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isLoading = true;
-                  });
-                },
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Padding(
+              Positioned(
+                top: 32.h,
+                left: 81.w,
+                child: GestureDetector(
+                  onTap: () {
+                    _showModalBottomSheet(context);
+                  },
+                  child: Container(
                     padding: const EdgeInsets.only(
-                        top: 16, bottom: 16, left: 16, right: 16),
-                    child: Column(
+                        top: 11, right: 16, bottom: 11, left: 16),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        isLoading
-                            ? Row(
-                                children: [
-                                  SizedBox(
-                                    height: 20.h,
-                                    width: 20.w,
-                                    child: CircularProgressIndicator(
-                                        strokeWidth: 6,
-                                        color: const Color(0xff3AC0A0),
-                                        value: progressValue),
-                                  ),
-                                  SizedBox(width: w * 0.02),
-                                  Text(
-                                    '${(progressValue * 25).toStringAsFixed(0)}% Completed',
-                                    style: GoogleFonts.openSans(
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              )
-                            : Row(
-                                children: [
-                                  Text(
-                                    "Calibration in progress....",
-                                    style: GoogleFonts.openSans(
-                                        color: Color(0xFF2A2A2A),
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                ],
-                              ),
-                        SizedBox(
-                          width: w * 0.8,
-                          child: Text(
-                            "During the measurement, please do not speak or move..",
-                            style: GoogleFonts.openSans(
-                                color: Color(0xB2213D68),
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w400),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 11),
+                          child: CircleAvatar(
+                            radius: 5,
+                            backgroundColor: isLoading
+                                ? const Color(0xff3AC0A0)
+                                : const Color(0xffFF616D),
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isLoading = false;
-                                });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.only(
-                                    left: 16,
-                                    top: 10.5,
-                                    right: 16,
-                                    bottom: 10.5),
-                                decoration: BoxDecoration(
-                                    border: Border.all(width: 1),
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Center(
-                                  child: Text(
-                                    "Cancle Scan",
-                                    style: GoogleFonts.openSans(
-                                        color: const Color(0xffF31F2E),
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ),
+                        isLoading
+                            ? Text(
+                                "Signal strength: Good",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600),
+                              )
+                            : Text(
+                                "Signal strength: Poor",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600),
                               ),
-                            ),
-                          ],
-                        ),
                       ],
                     ),
                   ),
                 ),
               ),
-            )
-          ],
-        ),
+              Positioned(
+                left: 20.w,
+                bottom: 38.h,
+                right: 20.w,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isLoading = true;
+                    });
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 16, bottom: 16, left: 16, right: 16),
+                      child: Column(
+                        children: [
+                          isLoading
+                              ? Row(
+                                  children: [
+                                    SizedBox(
+                                      height: 20.h,
+                                      width: 20.w,
+                                      child: CircularProgressIndicator(
+                                          strokeWidth: 6,
+                                          color: const Color(0xff3AC0A0),
+                                          value: progressValue),
+                                    ),
+                                    SizedBox(width: w * 0.02),
+                                    Text(
+                                      '${(progressValue * 25).toStringAsFixed(0)}% Completed',
+                                      style: GoogleFonts.openSans(
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                )
+                              : Row(
+                                  children: [
+                                    Text(
+                                      "Calibration in progress....",
+                                      style: GoogleFonts.openSans(
+                                          color: Color(0xFF2A2A2A),
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ],
+                                ),
+                          SizedBox(
+                            width: w * 0.8,
+                            child: Text(
+                              "During the measurement, please do not speak or move..",
+                              style: GoogleFonts.openSans(
+                                  color: Color(0xB2213D68),
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.only(
+                                      left: 16,
+                                      top: 10.5,
+                                      right: 16,
+                                      bottom: 10.5),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(width: 1),
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Center(
+                                    child: Text(
+                                      "Cancel Scan",
+                                      style: GoogleFonts.openSans(
+                                          color: const Color(0xffF31F2E),
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          );
+        }),
       ),
-    ));
+    );
   }
 }
 
