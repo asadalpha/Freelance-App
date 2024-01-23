@@ -12,7 +12,7 @@ class ScanScreen extends StatefulWidget {
 }
 
 class _ScanScreenState extends State<ScanScreen> {
-  CameraController? _controller; // Make it nullable
+  CameraController? _controller; 
   late List<CameraDescription> cameras;
   bool isLoading = false;
 
@@ -27,11 +27,11 @@ class _ScanScreenState extends State<ScanScreen> {
   }
 
   Future<void> initializeCamera() async {
-    // Check if camera permission is granted
+    
     PermissionStatus status = await Permission.camera.status;
 
     if (status.isGranted) {
-      // If permission is granted, initialize the camera
+      
       cameras = await availableCameras();
       if (cameras.isNotEmpty) {
         _controller = CameraController(cameras[1], ResolutionPreset.medium);
@@ -40,16 +40,16 @@ class _ScanScreenState extends State<ScanScreen> {
           setState(() {});
         }
       } else {
-        // Handle the case where no cameras are available, e.g., show an error message.
+        
         print("No cameras available");
       }
     } else {
-      // If permission is not granted, request it
+    
       await Permission.camera.request().then((PermissionStatus requestStatus) {
         if (requestStatus.isGranted) {
           initializeCamera();
         } else {
-          // Handle the case where the user denied camera permission
+          
           print("Camera permission denied");
         }
       });

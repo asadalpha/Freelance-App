@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:onco_app/UI/confirmation_page.dart';
 import 'package:onco_app/UI/pages/login_in_screen.dart';
 import 'package:onco_app/UI/pages/register_screen.dart';
 import 'package:onco_app/UI/pages/scan_screen.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: const ScanScreen(),
+      child: const ConfirmationPage(),
     );
   }
 }
